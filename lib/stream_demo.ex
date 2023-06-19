@@ -7,7 +7,10 @@ defmodule StreamDemo do
   end
 
   def longest_line_length(path) do
-    Enum.max([0 | line_lengths(path)])
+    case line_lengths(path) do
+      [] -> 0
+      lengths -> Enum.max(lengths)
+    end
   end
 
   @spec longest_line(Path.t()) :: String.t()
