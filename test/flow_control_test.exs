@@ -41,4 +41,8 @@ defmodule FlowControlTest do
   test "range" do
     assert FlowControl.range(1, 5) === [1, 2, 3, 4, 5]
   end
+
+  test "mixed_sum returns correct sum even with random elements" do
+    assert FlowControl.mixed_sum([1, 2, "test", [], 3]) === 6
+  end
 end

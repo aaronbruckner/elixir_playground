@@ -18,4 +18,12 @@ defmodule FlowControl do
   def range(first, last), do: range(first, last, [])
   defp range(first, last, values) when last < first, do: values
   defp range(first, last, values), do: range(first, last - 1, [last | values])
+
+  @spec mixed_sum(list()) :: list()
+  def mixed_sum(list) do
+    Enum.reduce(list, 0, fn
+      elem, sum when is_number(elem) -> sum + elem
+      _, sum -> sum
+    end)
+  end
 end
