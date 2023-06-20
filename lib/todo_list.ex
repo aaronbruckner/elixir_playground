@@ -1,17 +1,21 @@
 defmodule TodoList do
 
-  @type t :: %{}
+  defstruct next_id: 0, entries: %{}
 
-  @spec new() :: t()
-  def new(), do: %{}
+  @spec new() :: %TodoList{}
+  def new(), do: %TodoList{}
 
-  @spec add_entry(t(), Calendar.date(), String.t()) :: t()
-  def add_entry(todoList, date, title) do
-    Map.update(todoList, date, [title], fn items -> [title | items] end)
+  @spec add_entry(%TodoList{}, %{title: String.t(), date: Calendar.date()}) :: %TodoList{}
+  def add_entry(todoList, entry) do
+    entry = Map.put(entry, :id, todoList.next_id)
+    entires = Map.put(todoList.entries, todoList.next_id, entry)
+    %TodoList{todoList | entries: entires, next_id: todoList.next_id + 1}
   end
 
-  @spec entries(t(), Calendar.date()) :: list(String.t())
+  @spec entries(%TodoList{}, Calendar.date()) :: list(String.t())
   def entries(todoList, date) do
-    Map.get(todoList, date, [])
+    Stream.map(todoList.entries, fn {_id, entry} -> entry end)
+    |> Enum.filter(fn entry -> entry.date === date end)
   end
+
 end

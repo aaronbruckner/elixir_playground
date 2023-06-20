@@ -12,26 +12,26 @@ defmodule TodoListTest do
 
   test "add_entry - adds a single todo to one date" do
     todoList = TodoList.new()
-    |> TodoList.add_entry(~D[2020-01-01], "todo 1")
+    |> TodoList.add_entry(%{date: ~D[2020-01-01], title: "todo 1"})
 
-    assert TodoList.entries(todoList, ~D[2020-01-01]) === ["todo 1"]
+    assert TodoList.entries(todoList, ~D[2020-01-01]) === [%{date: ~D[2020-01-01], title: "todo 1", id: 0}]
   end
 
   test "add_entry - adds multiple todos to a single date" do
     todoList = TodoList.new()
-    |> TodoList.add_entry(~D[2020-01-01], "todo 1")
-    |> TodoList.add_entry(~D[2020-01-01], "todo 2")
+    |> TodoList.add_entry(%{date: ~D[2020-01-01], title: "todo 1"})
+    |> TodoList.add_entry(%{date: ~D[2020-01-01], title: "todo 2"})
 
-    assert TodoList.entries(todoList, ~D[2020-01-01]) === ["todo 2", "todo 1"]
+    assert TodoList.entries(todoList, ~D[2020-01-01]) === [%{date: ~D[2020-01-01], title: "todo 1", id: 0}, %{date: ~D[2020-01-01], title: "todo 2", id: 1}]
   end
 
   test "add_entry - adds multiple todos to different dates" do
     todoList = TodoList.new()
-    |> TodoList.add_entry(~D[2020-01-01], "todo 1")
-    |> TodoList.add_entry(~D[2020-01-02], "todo 2")
+    |> TodoList.add_entry(%{date: ~D[2020-01-01], title: "todo 1"})
+    |> TodoList.add_entry(%{date: ~D[2020-01-02], title: "todo 2"})
 
-    assert TodoList.entries(todoList, ~D[2020-01-01]) === ["todo 1"]
-    assert TodoList.entries(todoList, ~D[2020-01-02]) === ["todo 2"]
+    assert TodoList.entries(todoList, ~D[2020-01-01]) === [%{date: ~D[2020-01-01], title: "todo 1", id: 0}]
+    assert TodoList.entries(todoList, ~D[2020-01-02]) === [%{date: ~D[2020-01-02], title: "todo 2", id: 1}]
   end
 
 end
