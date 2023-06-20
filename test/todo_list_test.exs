@@ -6,6 +6,21 @@ defmodule TodoListTest do
     assert TodoList.new() !== nil
   end
 
+  test "new - multiple starting entries" do
+    todoList =
+      TodoList.new([
+        %{date: ~D[2020-01-01], title: "todo 1"},
+        %{date: ~D[2020-01-01], title: "todo 2"},
+        %{date: ~D[2020-01-01], title: "todo 3"}
+      ])
+
+    assert TodoList.entries(todoList, ~D[2020-01-01]) === [
+             %{id: 0, date: ~D[2020-01-01], title: "todo 1"},
+             %{id: 1, date: ~D[2020-01-01], title: "todo 2"},
+             %{id: 2, date: ~D[2020-01-01], title: "todo 3"}
+           ]
+  end
+
   test "entries - returns empty list for no dates" do
     assert TodoList.new() |> TodoList.entries(~D[2020-01-01]) === []
   end

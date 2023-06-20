@@ -3,8 +3,10 @@ defmodule TodoList do
 
   @type newTodoEntry :: %{title: String.t(), date: Calendar.date()}
 
-  @spec new() :: %TodoList{}
-  def new(), do: %TodoList{}
+  @spec new(list(%TodoList{})) :: %TodoList{}
+  def new(entries \\ []) do
+    Enum.reduce(entries, %TodoList{}, fn entry, acc -> add_entry(acc, entry) end)
+  end
 
   @spec add_entry(%TodoList{}, newTodoEntry()) :: %TodoList{}
   def add_entry(todoList, entry) do
