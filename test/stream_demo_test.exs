@@ -15,7 +15,7 @@ defmodule StreamDemoTest do
   end
 
   test "longest_line returns the text for the longest line in the file" do
-    assert StreamDemo.longest_line("test/mockFiles/mockShortFile.txt") === "There once was a man name Fred and no one liked him.\n"
+    assert StreamDemo.longest_line("test/mockFiles/mockShortFile.txt") ===
+             "There once was a man name Fred and no one liked him.\n"
   end
-
 end

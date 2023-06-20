@@ -27,7 +27,7 @@ defmodule FlowControlTest do
   end
 
   test "list_length non-empty list" do
-    assert FlowControl.list_length([1,2,3,4]) === 4
+    assert FlowControl.list_length([1, 2, 3, 4]) === 4
   end
 
   test "list_length_tail empty list" do
@@ -35,7 +35,7 @@ defmodule FlowControlTest do
   end
 
   test "list_length_tail non-empty list" do
-    assert FlowControl.list_length_tail([1,2,3,4]) === 4
+    assert FlowControl.list_length_tail([1, 2, 3, 4]) === 4
   end
 
   test "range" do

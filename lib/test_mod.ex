@@ -1,6 +1,6 @@
 defmodule MyMod do
   def test() do
-    IO.puts "hello world 2"
+    IO.puts("hello world 2")
   end
 
   @spec sum(number, number) :: number

@@ -1,12 +1,10 @@
 defmodule TodoList do
-
   defstruct next_id: 0, entries: %{}
 
   @type newTodoEntry :: %{title: String.t(), date: Calendar.date()}
 
   @spec new() :: %TodoList{}
   def new(), do: %TodoList{}
-
 
   @spec add_entry(%TodoList{}, newTodoEntry()) :: %TodoList{}
   def add_entry(todoList, entry) do
@@ -27,5 +25,4 @@ defmodule TodoList do
     Stream.map(todoList.entries, fn {_id, entry} -> entry end)
     |> Enum.filter(fn entry -> entry.date === date end)
   end
-
 end

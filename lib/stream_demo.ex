@@ -15,9 +15,10 @@ defmodule StreamDemo do
 
   @spec longest_line(Path.t()) :: String.t()
   def longest_line(path) do
-    {_length, longestLine} = File.stream!(path)
-    |> Stream.map(fn line -> {String.length(line), line} end)
-    |> Enum.max_by(&(elem(&1, 0)))
+    {_length, longestLine} =
+      File.stream!(path)
+      |> Stream.map(fn line -> {String.length(line), line} end)
+      |> Enum.max_by(&elem(&1, 0))
 
     longestLine
   end
