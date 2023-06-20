@@ -20,6 +20,11 @@ defmodule TodoList do
     %TodoList{todoList | entries: entries}
   end
 
+  @spec delete_entry(%TodoList{}, number()) :: %TodoList{}
+  def delete_entry(%{entries: entries} = todoList, id) do
+    %TodoList{todoList | entries: Map.delete(entries, id)}
+  end
+
   @spec entries(%TodoList{}, Calendar.date()) :: list(String.t())
   def entries(todoList, date) do
     Stream.map(todoList.entries, fn {_id, entry} -> entry end)

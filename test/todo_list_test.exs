@@ -70,4 +70,21 @@ defmodule TodoListTest do
       |> TodoList.update_entry(99, %{date: ~D[2020-01-01], title: "todo 1"})
     end
   end
+
+  test "delete_entry - removes todo item" do
+    todoList =
+      TodoList.new()
+      |> TodoList.add_entry(%{date: ~D[2020-01-01], title: "todo 1"})
+      |> TodoList.add_entry(%{date: ~D[2020-01-02], title: "todo 2"})
+
+    [entry | _] = TodoList.entries(todoList, ~D[2020-01-01])
+
+    todoList = TodoList.delete_entry(todoList, entry.id)
+
+    assert TodoList.entries(todoList, ~D[2020-01-01]) === []
+
+    assert TodoList.entries(todoList, ~D[2020-01-02]) === [
+             %{date: ~D[2020-01-02], title: "todo 2", id: 1}
+           ]
+  end
 end
