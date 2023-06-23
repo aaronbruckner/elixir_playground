@@ -33,3 +33,15 @@ defmodule TodoList do
     |> Enum.filter(fn entry -> entry.date === date end)
   end
 end
+
+defmodule TodoList.CsvImporter do
+  @spec newTodoListFromFile(String.t()) :: %TodoList{}
+  def newTodoListFromFile(path) do
+    File.stream!(path)
+    |> Stream.map(fn line -> String.trim(line) end)
+    |> Enum.reduce(TodoList.new(), fn line, todoList ->
+      [date, title] = String.split(line, ",")
+      TodoList.add_entry(todoList, %{date: Date.from_iso8601!(date), title: title})
+    end)
+  end
+end
