@@ -102,4 +102,14 @@ defmodule TodoListTest do
              %{date: ~D[2020-01-02], title: "todo 2", id: 1}
            ]
   end
+
+  test "to_string - prints basic todo list representation" do
+    todoList =
+      TodoList.new()
+      |> TodoList.add_entry(%{date: ~D[2020-01-01], title: "todo 1"})
+      |> TodoList.add_entry(%{date: ~D[2020-01-01], title: "todo 2"})
+      |> TodoList.add_entry(%{date: ~D[2020-01-02], title: "todo 3"})
+
+    assert to_string(todoList) === "todo 1,todo 2,todo 3"
+  end
 end
