@@ -13,13 +13,14 @@ defmodule BasicServer do
     receive do
       {:response_async_query, result} -> result
     end
-
   end
 
   defp loop do
     receive do
-      {:async_query, caller_pid, query} -> send(caller_pid, {:response_async_query, async_query(query)})
+      {:async_query, caller_pid, query} ->
+        send(caller_pid, {:response_async_query, async_query(query)})
     end
+
     loop()
   end
 
