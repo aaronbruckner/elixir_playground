@@ -3,22 +3,25 @@ defmodule TodoServer do
   ###
   # Client API
   ###
+  @spec start() :: pid()
   def start do
-    GenServer.start(__MODULE__, nil, name: __MODULE__)
+    {:ok, pid} = GenServer.start(__MODULE__, nil)
+    pid
   end
 
-  def stop do
-    GenServer.stop(__MODULE__)
+  @spec stop(pid()) :: :ok
+  def stop(server_pid) do
+    GenServer.stop(server_pid)
   end
 
-  @spec add_entry(TodoList.newTodoEntry()) :: :ok
-  def add_entry(entry) do
-    GenServer.cast(__MODULE__, {:add_entry, entry})
+  @spec add_entry(pid(), TodoList.newTodoEntry()) :: :ok
+  def add_entry(server_pid, entry) do
+    GenServer.cast(server_pid, {:add_entry, entry})
   end
 
-  @spec entries(Calendar.date()) :: list(TodoList.todoEntry())
-  def entries(date) do
-    GenServer.call(__MODULE__, {:entries, date}, :infinity)
+  @spec entries(pid(), Calendar.date()) :: list(TodoList.todoEntry())
+  def entries(server_pid, date) do
+    GenServer.call(server_pid, {:entries, date}, :infinity)
   end
 
   ###
